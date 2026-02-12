@@ -1,4 +1,4 @@
-# Makefile.am for qmidiarp
+# Makefile.am for midimet_lv2
 #
 ACLOCAL_AMFLAGS = -I m4
 
