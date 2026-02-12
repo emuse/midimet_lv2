@@ -202,6 +202,7 @@ void MidiMetLV2::updatePos(uint64_t pos, float bpm, int speed, bool ignore_pos)
 
 void MidiMetLV2::run (uint32_t nframes )
 {
+    const int32_t timeshift_ticks = timeshift * TPQN * tempo / 60. * 1e-3;
     float* const   output          = outputPort;
     const MidiMetURIs* uris = &m_uris;
     const uint32_t capacity = outEventBuffer->atom.size;
@@ -228,6 +229,14 @@ void MidiMetLV2::run (uint32_t nframes )
     for (uint32_t f = 0 ; f < nframes; f++) {
         curTick = (uint64_t)(curFrame - transportFramesDelta)
                         *TPQN*tempo/60/sampleRate + tempoChangeTick;
+        if (timeshift_ticks > 0) {
+            if (curTick > (uint32_t)(timeshift_ticks)) {
+                curTick -= timeshift_ticks;
+            }
+        }
+        else {
+            curTick -= timeshift_ticks;
+        }
         if ((curTick >= (uint64_t)nextTick) && (transportSpeed)) {
             getNextFrame(nextTick);
             if (!outFrame[0].muted && !isMuted) {

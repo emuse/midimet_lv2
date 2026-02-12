@@ -36,7 +36,6 @@ MidiMet::MidiMet()
     channelOut = 0;
     notelength = 180;
     timeshift = 0;
-    timeshift_ticks = 0;
     midiNoteKey = 57;
     isMuted = false;
     nPoints = 1;
@@ -96,7 +95,6 @@ void MidiMet::updateNoteLength(int val)
 void MidiMet::updateTimeShift(int val)
 {
     timeshift = val;
-    timeshift_ticks = timeshift * TPQN * 1e-3;
 }
 
 void MidiMet::updateResolution(int val)

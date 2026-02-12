@@ -54,7 +54,6 @@ class MidiMet  {
   public:
     int vel, notelength;
     int timeshift;
-    int timeshift_ticks;
     int res, size;
     int channelOut;
     int midiNoteKey;
