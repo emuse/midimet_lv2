@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
-project(midimet_lv2 VERSION 0.0.1
+project(midimet VERSION 0.0.1
         DESCRIPTION "LV2 Audio and MIDI Metronome with host transport capability"
         LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set (PACKAGE "midimet_lv2")
-set (PACKAGE_NAME "midimet_lv2")
+set (PACKAGE "midimet")
+set (PACKAGE_NAME "midimet")
 set (PACKAGE_VERSION "${PROJECT_VERSION}")
 set (PACKAGE_BUGREPORT "emuse@users.sourceforge.net")
 set (PACKAGE_STRING "${PACKAGE_NAME}-${PACKAGE_VERSION}")
-set (PACKAGE_TARNAME "midimet_lv2")
+set (PACKAGE_TARNAME "midimet")
 set (VERSION "${PROJECT_VERSION}")
 
 set(STRIP_DEBUG_SYMBOLS ON CACHE BOOL "Strip debug symbols (default=yes)")

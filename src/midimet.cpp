@@ -29,7 +29,7 @@
 
 MidiMet::MidiMet()
 {
-    vel = 0;
+    vel = 64;
     size = 4;
     res = 1;
     nPoints = res * size;
@@ -38,21 +38,20 @@ MidiMet::MidiMet()
     timeshift = 0;
     midiNoteKey = 57;
     isMuted = false;
-    nPoints = 1;
     framePtr = 0;
 
     outFrame.resize(2);
     
-    midiSample = {0, 0, 0, false};
-    midiSample.data = 60;
-    midiSample.value = 0;
+    Sample sample = {0, 0, 0, false};
+    sample.data = midiNoteKey;
+    sample.value = vel;
     
-    midiSample.tick = TPQN / res;
-    midiSample.muted = false;
+    sample.tick = TPQN / res;
+    sample.muted = false;
     
-    outFrame[0] = midiSample;
-    midiSample.data = -1;
-    outFrame[1] = midiSample;
+    outFrame[0] = sample;
+    sample.data = -1;
+    outFrame[1] = sample;
 
 }
 
@@ -69,7 +68,7 @@ void MidiMet::getNextFrame(int64_t tick)
         
 
     framePtr++;
-    framePtr %= res * size;
+    framePtr %= nPoints;
 
     if (nextTick < (tick - frame_nticks)) nextTick = tick;
 

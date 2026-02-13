@@ -1,6 +1,6 @@
 /*!
  * @file midimet.h
- * @brief Member definitions for the MidiMet MIDI worker class.
+ * @brief Member definitions for the MidiMet class.
  *
  *
  *      Copyright 2009 - 2026 <qmidiarp-devel@lists.sourceforge.net>
@@ -32,10 +32,11 @@
 #define TPQN           48000
 #define JQ_BUFSZ        1024
 
-/*! @brief This array holds the currently available Seq resolution values.
+/*! @brief This array holds the currently available Seq resolution values in beat
+ * divisions.
  */
 const int seqResValues[13] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 16};
-/*! @brief This array holds the currently available Seq size values.
+/*! @brief This array holds the currently available size values in beats.
  */
 const int seqSizeValues[20] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 24, 32, 64, 128};
 
@@ -43,11 +44,9 @@ const int seqSizeValues[20] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15
 /*! @brief MIDI worker class for the Met Module. Implements a metronome
  * connectable to transport.
  *
- * The parameters of MidiMet are controlled by the MetWidget class.
- * The backend driver thread calls the Engine::echoCallback(), which will
- * query each module, in this case via
- * the MidiMet::getNextFrame() method. MidiMet will produce a click at
- * configurable beat divisions
+ * Tick (timing) and MIDI event information is returned by the 
+ * MidiMet::getNextFrame() method. 
+ * MidiMet will produce a click at configurable beat divisions
  */
 class MidiMet  {
 
@@ -59,9 +58,8 @@ class MidiMet  {
     int midiNoteKey;
     bool isMuted;
     int64_t nextTick; /*!< Holds the next tick at which note events will be played out */
-    int framePtr;       /*!< position of the currently output frame in sequence/wave/pattern */
-    int nPoints;        /*!< Number of steps in pattern or sequence or wave */
-    Sample midiSample;
+    int framePtr;       /*!< position of the currently output frame in sequence */
+    int nPoints;        /*!< Number of steps in pattern or sequence */
     
     std::vector<Sample> outFrame;   /*!< Vector of Sample points holding the current frame for transfer */
 
@@ -77,15 +75,17 @@ class MidiMet  {
 
     void resizeAll();
 
-/*! @brief sets MidiWorker::isMuted, which is checked by
- * Engine and which suppresses data output globally if set to True.
+/*! @brief sets MidiMet:isMuted, which is checked by
+ * the driver and which suppresses data output globally if set to True.
  *
  * @param on Set to True to suppress data output to the Driver
  */
     virtual void setMuted(bool on);
     
     void setNextTick(uint64_t tick);
-/*! @brief  transfers the next Midi data Frame to an intermediate internal object
+/*! @brief  transfers the next Midi data (Sample) to an intermediate internal 
+ * (outFrame) MIDI sample vector along with timing. The timing in outFrame 
+ * is queried by the driver
  * 
  * @param tick the current tick at which we request a note. This tick will be
  * used to calculate the nextTick which is quantized to the pattern

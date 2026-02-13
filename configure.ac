@@ -23,23 +23,12 @@ LT_INIT([dlopen])
 # Checks for minimal required libraries for all components
 AC_CHECK_LIB([m], [roundf], , AC_MSG_ERROR([required libm missing]))
 
-ac_lv2willbuild=no
-
 dnl check for lv2atom
 AC_CHECK_HEADER( lv2/lv2plug.in/ns/ext/atom/atom.h, lv2include_found="yes", lv2include_found="no" )
 PKG_CHECK_MODULES(LV2, lv2 >= 1.10, lv2Works="yes", lv2Works="no")
 CFLAGSsave=$CFLAGS
 CFLAGS=$LV2_CFLAGS
 AC_SUBST(LV2_CFLAGS)
-CFLAGS="$CFLAGS $CFLAGSsave"
-
-
-# Save minimal required libraries
-LIBSmin=$LIBS
-LIBS=""
-
-# And minimal libraries for other targets
-LIBS=$LIBSmin
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_HEADER_STDBOOL

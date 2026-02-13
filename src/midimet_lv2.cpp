@@ -30,7 +30,7 @@ MidiMetLV2::MidiMetLV2 (
     double sample_rate, const LV2_Feature *const *host_features )
     :MidiMet()
 {
-    for (int l1 = 0; l1 < 16; l1++) val[l1] = 0;
+    for (int l1 = 0; l1 < 17; l1++) val[l1] = 0;
 
     sampleRate = sample_rate;
     curFrame = 0;
@@ -66,9 +66,10 @@ MidiMetLV2::MidiMetLV2 (
     // Carrier (position 0) and Modulator Oscillator parameters
     const float FH[5] = {880,       1.5,    4,    8,    12}; // Hz
     const float FL[5] = {440,       1.5,    4,    8,    12}; // Hz
-    const int   A[5] =  {1,   8,      8,    5,    10};
-    //const int   A[5] = {1,   0,      0,    0,    0};
-    const float T[5] = {.02,     .02,   .005,  .01,  .015}; // seconds
+    const int   A[5] =  {1,   12,      8,    8,    10};
+    // const int   A[5] =  {1,   8,      8,    5,    10};
+    // const int   A[5] =  {1,   0,      0,    0,    0};
+    const float T[5] =  {.02,     .015,   .01,  .01,  .005}; // seconds
     
     // We are cutting of the wave when time is beyond 30 decay times
     const uint32_t npoints = (int)(30 * T[0] * sampleRate);

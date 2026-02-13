@@ -21,8 +21,3 @@ midimet_la_CXXFLAGS = -std=c++17 -Wall -Wextra -Wno-deprecated-copy -D_REENTRANT
 # misc files which are distributed but not installed
 EXTRA_DIST = \
 	CMakeLists.txt cmake_config.h.in
-
-
-# all generated files to be removed by "make clean"
-# CLEANFILES =
-
