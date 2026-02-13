@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(midimet VERSION 0.0.1
+project(midimet VERSION 0.9.9
         DESCRIPTION "LV2 Audio and MIDI Metronome with host transport capability"
         LANGUAGES C CXX)
 
