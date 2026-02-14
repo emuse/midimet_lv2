@@ -195,7 +195,13 @@ void MidiMetLV2::updatePos(uint64_t pos, float bpm, int speed, bool ignore_pos)
             transportSpeed = speed;
             curFrame = transportFramesDelta;
             if (transportSpeed) {
-                setNextTick(tempoChangeTick);
+                if (tempoChangeTick > 0) {
+                    // avoid output of first click when pressing continue
+                    setNextTick((tempoChangeTick / (TPQN / res) + 1) * (TPQN / res));
+                }
+                else {
+                    setNextTick(tempoChangeTick);
+                }
             }     
         }
     }
