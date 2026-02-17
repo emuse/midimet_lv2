@@ -1,7 +1,7 @@
-midimet_lv2 by Frank Kober 2026
+midimet by Frank Kober 2026
 
          published under the GNU General Public License.
-         A copy of the License can be found in the LICENSE file
+         A copy of the License can be found in the COPYING file
 
 
 Description
@@ -20,7 +20,7 @@ lv2-dev                (lv2-devel)       for building the LV2 modules
 Installation with cmake
 -------------------------------------------
 After unpacking:
-cd midimet_lv2-<version>
+cd midimet-<version>
 mkdir build
 cd build
 (for configuration: ccmake ..)
