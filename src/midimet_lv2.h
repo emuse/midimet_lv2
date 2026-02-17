@@ -139,8 +139,6 @@ private:
         uint64_t curTick;
         uint32_t elapsed_len; // Frames since the start of the last click
 
-        Sample currentSample;
-
         double internalTempo;
         double sampleRate;
         double tempo;
