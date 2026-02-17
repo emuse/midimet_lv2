@@ -101,7 +101,8 @@ MidiMetLV2::MidiMetLV2 (
 
 
     /* Scan host features for URID map */
-
+    urid_map = NULL;
+    
     for (int i = 0; host_features[i]; ++i) {
         if (::strcmp(host_features[i]->URI, LV2_URID_URI "#map") == 0) {
             urid_map = (LV2_URID_Map *) host_features[i]->data;
@@ -441,12 +442,6 @@ static void MidiMetLV2_cleanup ( LV2_Handle instance )
         delete pPlugin;
 }
 
-static const void *MidiMetLV2_extension_data ( const char * uri)
-{
-    (void)uri;
-    return NULL;
-}
-
 static const LV2_Descriptor MidiMetLV2_descriptor =
 {
     MIDIMET_LV2_URI,
@@ -456,7 +451,7 @@ static const LV2_Descriptor MidiMetLV2_descriptor =
     MidiMetLV2_run,
     MidiMetLV2_deactivate,
     MidiMetLV2_cleanup,
-    MidiMetLV2_extension_data
+    NULL
 };
 
 LV2_SYMBOL_EXPORT const LV2_Descriptor *lv2_descriptor ( uint32_t index )
