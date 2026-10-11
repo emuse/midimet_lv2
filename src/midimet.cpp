@@ -37,6 +37,7 @@ MidiMet::MidiMet()
     notelength = 180;
     timeshift = 0;
     midiNoteKey = 57;
+    accentPosition = 1;
     isMuted = false;
     framePtr = 0;
 
@@ -59,7 +60,7 @@ void MidiMet::getNextFrame(int64_t tick)
 {
     const int frame_nticks = TPQN / res;
     Sample sample = {0, 0, 0, false};
-    if (framePtr == 0) {
+    if (framePtr == (accentPosition - 1) %nPoints) {
         sample.data = midiNoteKey + 12;
     }
     else {
@@ -94,6 +95,11 @@ void MidiMet::updateNoteLength(int val)
 void MidiMet::updateTimeShift(int val)
 {
     timeshift = val;
+}
+
+void MidiMet::updateAccentPosition(int val)
+{
+    accentPosition = val;
 }
 
 void MidiMet::updateResolution(int val)

@@ -100,7 +100,8 @@ public:
             HOST_TEMPO = 10,
             HOST_POSITION = 11,
             HOST_SPEED = 12,
-            TIMESHIFT = 13
+            TIMESHIFT = 13,
+            ACCENTPOS = 14
         };
         enum State {
           STATE_ATTACK, // Envelope rising
@@ -123,7 +124,7 @@ public:
 private:
 
         float *outputPort;
-        float *val[17];
+        float *val[18];
 
         // One cycle of a sine wave
         float*   wave_h;

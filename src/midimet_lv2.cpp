@@ -288,7 +288,7 @@ void MidiMetLV2::run (uint32_t nframes )
         }
         elapsed_len  = curFrame - soundOnFrame;
         if (elapsed_len < wave_len) {
-            if (framePtr == 1) {
+            if (framePtr == (accentPosition % nPoints)) {
                 output[f] = wave_h[elapsed_len] * vel / 128;
                 }
             else {
@@ -327,6 +327,10 @@ void MidiMetLV2::updateParams()
 
     if (timeshift != (int)*val[TIMESHIFT]) {
         updateTimeShift((int)*val[TIMESHIFT]);
+    }
+
+    if (accentPosition != (int)*val[ACCENTPOS]) {
+        updateAccentPosition((int)*val[ACCENTPOS]);
     }
 
 

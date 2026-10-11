@@ -56,6 +56,7 @@ class MidiMet  {
     int res, size;
     int channelOut;
     int midiNoteKey;
+    int accentPosition;
     bool isMuted;
     int64_t nextTick; /*!< Holds the next tick at which note events will be played out */
     int framePtr;       /*!< position of the currently output frame in sequence */
@@ -71,6 +72,7 @@ class MidiMet  {
     void updateResolution(int);
     void updateNoteLength(int);
     void updateTimeShift(int);
+    void updateAccentPosition(int);
     void updateSize(int);
 
     void resizeAll();
